@@ -4,7 +4,7 @@
 using namespace std; 
 
 /* Link list node */
-struct Node 
+struct Node   //hi i am rkbali5411
 { 
 	int data; 
 	struct Node* next; 
