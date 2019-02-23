@@ -1,0 +1,109 @@
+/*package whatever //do not write package name here */
+/*package whatever //do not write package name here */
+import java.util.*;
+
+class   DiagnolSum{
+   
+   static class Sum{
+       
+       int level;
+       int sum=0;
+   }
+    Node root;
+    
+    class Node{
+        
+        int data;
+        Node left;
+        Node right;
+        
+        Node(int data){
+            this.data=data;
+        }
+    }
+    
+    void insert(int data){
+        
+        Node x=new Node(data);
+        if(root==null){
+            
+            root=x;
+            return;
+        }
+        
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        
+        while(!q.isEmpty()){
+            
+            Node p=q.remove();
+            
+            if(p.left==null){
+                
+                p.left=x;
+                return;
+            }else q.add(p.left);
+            
+            if(p.right==null){
+                p.right=x;
+                return;
+            }else q.add(p.right);
+            
+        }
+        
+    }
+    
+    
+  Node prune(Node root,int k){
+      
+      if(root==null)
+      return null;
+      
+      root.left=prune(root.left,k-root.data);
+      root.right=prune(root.right,k-root.data);
+      
+      if(root.left==null && root.right==null){
+          
+          if(root.data<k){
+         
+          root=null;
+          }
+          
+          
+      }
+      
+     return root;
+     
+      
+      
+  }
+  void traverse(Node root){
+      if(root==null)
+      return;
+      traverse(root.left);
+      System.out.print(root.data+" ");
+      traverse(root.right);
+      
+  }
+    ....
+    
+	public static void main (String[] args) {
+		
+		DiagnolSum x=new DiagnolSum();
+		x.insert(1);
+		x.insert(2);
+		x.insert(3);
+		x.insert(4);
+		x.insert(5);
+		x.insert(6);
+		x.insert(7);
+		x.insert(8);
+		x.insert(9);
+		x.traverse(x.root);
+		System.out.println();
+    x.prune(x.root,10);
+	x.traverse(x.root);
+   
+		
+	}
+}
