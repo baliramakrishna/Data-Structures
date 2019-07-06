@@ -1,22 +1,39 @@
 /*package whatever //do not write package name here */
 
-import java.util.*;
-
-class GFG {
-	public static void main (String[] args) {
-		
-		int N=6;
-		int a[][] = {{-1, 1}, {0, 0}, {1, 1}, {2, 2}, 
-                    {3, 3}, {3, 4}}; 
-        System.out.println(count(a,N));
-	}
-	
-	static int count(int a[][],int n){
+{
+    import java.util.*;
+    class TestClass 
+    {
+        public static void main(String args[] ) throws Exception 
+        {
+            Scanner sc = new Scanner(System.in);
+            int T = sc.nextInt();
+            while(T>0)
+            {
+            	int N = sc.nextInt();
+            	
+            	int x[] = new int[N];
+       			int y[] = new int[N];
+            	for(int i = 0; i < N; i++)
+            		x[i] = sc.nextInt();
+	for(int i = 0; i < N; i++)
+            		y[i] = sc.nextInt();
+            	System.out.println(new GfG(). noOfPoints(x,y,N));
+            T--;
+            }
+        }
+    }
+}
+/*This is a function problem.You only need to complete the function given below*/
+class GfG{
+    
+    
+   int count(int a[][],int n){
 	    
 	    if(n==1)
 	    return 1;
 	    
-	    HashMap<String,Integer> h;
+	    HashMap<Double,Integer> h;
 	    
 	    int mp=0,vp,hp,cm,op; 
 	    for(int i=0;i<n-1;i++){
@@ -38,10 +55,12 @@ class GFG {
 	                
 	               int y=a[i][1]-a[j][1];
 	               int x=a[i][0]-a[j][0];
-	               int g=gcd(x,y);
-	               y/=g;
-	               x/=g;
-	               String s=pair(y,x);
+	               
+	               //calculate slope
+	               double s=(y*(1.0)/x);
+	               
+	               //if contains slope
+	               //update current max(cm) 
 	                if(!(h.containsKey(s))){
 	                h.put(s,1);
 	                cm = max(cm,1);
@@ -54,8 +73,10 @@ class GFG {
 	            
 	           
 	        }
-	   
+	         
+	         //current max is maximum of horizonatal,vertical,current max
 	         cm=max(max(vp,hp),cm);
+	         //current max+current point+overlapping points
 	         mp=max(mp,cm+1+op);
 	        
 	    }
@@ -63,31 +84,22 @@ class GFG {
 	   
 	}
 	
-	static int max(int n1,int n2){
+	  int max(int n1,int n2){
 	    
 	    return n1>=n2?n1:n2;
 	}
 
-	private static int gcd(int a,int b){
-	  if(a==0){
-		 return b; 
-	  }
-	  if(b==0){
-		 return a; 
-	  }
-	  if(a<0){
-		 return gcd(-1*a,b); 
-	  }
-	  if(b<0){
-		 return gcd(a,-1*b); 
-	  }
-	  if(a>b){
-		 return gcd(b,a); 
-	  }
-	  return gcd(b%a,a);
-   }
-	private static String pair(int a,int b){
-	  return String.valueOf(a)+String.valueOf(b); 
-   }
 
+   int noOfPoints(int X[],int Y[],int N) {
+        //You are required to complete this method
+        
+         int a[][]=new int[N][2];
+     
+     for(int i=0;i<N;i++){
+         a[i][0]=X[i];
+         a[i][1]=Y[i];
+     }
+     
+     return count(a,N);
+   }
 }
